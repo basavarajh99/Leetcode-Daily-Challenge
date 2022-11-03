@@ -1,6 +1,6 @@
 /*
 
-    1706. Where Will the Ball Fall
+    1706. Where Will the Ball Fall.
 
     Problem Statement: 
     You have a 2-D grid of size m x n representing a box, and you have n balls. The box is open on the top and bottom sides.
