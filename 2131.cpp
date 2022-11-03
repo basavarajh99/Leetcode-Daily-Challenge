@@ -14,7 +14,7 @@ Note that "clgglc" is another longest palindrome that can be created.
 Input: words = ["ab","ty","yt","lc","cl","ab"]
 Output: 8
 Explanation: One longest palindrome is "ty" + "lc" + "cl" + "yt" = "tylcclyt", of length 8.
-Note that "lcyttycl" is another longest palindrome that can be created.
+Note that "lcyttycl" is another longest palindrome that can be created
 
  */
 
