@@ -38,3 +38,66 @@ public:
         return ans;
     }
 };
+
+
+//optimized using Trie
+
+class Solution {
+    struct TrieNode{
+        string word;
+        TrieNode* children[26];
+    };
+    
+    TrieNode* root;
+    
+    void formTrie(vector<string>& words){
+        root = new TrieNode();
+        for(auto it : words){
+            TrieNode* cur = root;
+            for(auto c : it){
+                if(!cur->children[c-'a'])
+                    cur->children[c-'a'] = new TrieNode();
+                cur = cur->children[c-'a'];
+            }
+
+            cur->word = it;
+        }
+    }
+
+    void DFS(int i, int j, vector<vector<char>>& board, vector<string>& ans, int rows, int cols, TrieNode* r){
+        if(i < 0 || j < 0 || i >= rows || j >= cols || board[i][j] == '$' || !r->children[board[i][j] - 'a'])
+            return;
+        
+        r = r->children[board[i][j] - 'a'];
+
+        if(r->word.size() > 0){
+            ans.push_back(r->word);
+            r->word = "";
+        }
+
+        char ch = board[i][j];
+        board[i][j] = '$';
+
+        DFS(i-1, j, board, ans, rows, cols, r);
+        DFS(i+1, j, board, ans, rows, cols, r);
+        DFS(i, j-1, board, ans, rows, cols, r);
+        DFS(i, j+1, board, ans, rows, cols, r);
+
+        board[i][j] = ch;
+    }
+
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        int rows = board.size(), cols = board[0].size();
+        formTrie(words);
+        vector<string> ans;
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                DFS(i, j, board, ans, rows, cols, root);
+            }
+        }
+
+        return ans;
+    }
+};
+
